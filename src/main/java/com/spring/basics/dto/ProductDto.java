@@ -18,7 +18,6 @@ public class ProductDto {
     private String name;
     private String imageName;
     private Long categoryId;
-    private String description;
 
     public static ProductDto from(Product product) {
         return ProductDto.builder()
@@ -26,7 +25,6 @@ public class ProductDto {
                 .name(product.getName())
                 .imageName(product.getImageName())
                 .categoryId(product.getCategoryId())
-                .description(product.getDescription())
                 .build();
     }
 

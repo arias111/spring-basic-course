@@ -1,47 +1,48 @@
 package com.spring.basics.services.impletentations;
 
-import com.spring.basics.dto.ProductDto;
+import com.spring.basics.dto.BasketDto;
 import com.spring.basics.models.Product;
 import com.spring.basics.models.User;
-import com.spring.basics.repositories.ProductRepository;
-import com.spring.basics.repositories.UsersRepository;
+import com.spring.basics.repositories.ProductsRepository;
 import com.spring.basics.services.interfaces.BasketService;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
+import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
 
-@Service
+@Component
 public class BasketServiceImpl implements BasketService {
 
     @Autowired
-    private UsersRepository usersRepository;
+    private ProductsRepository productsRepository;
 
-    @Autowired
-    private ProductRepository productRepository;
-
-
+    @SneakyThrows
     @Override
-    public List<ProductDto> getBasket() {
-        UserDetails details = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String email = details.getUsername();
-        User user = usersRepository.findByEmail(email).orElse(null);
+    @Transactional
+    public List<BasketDto> getBasket() {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         List<Product> productList = user.getProducts();
-        return ProductDto.from(productList);
+        return BasketDto.from(productList);
     }
 
+    @SneakyThrows
     @Override
+    @Transactional
     public void addToBasket(Long productId) {
-        UserDetails details = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String email = details.getUsername();
-        User user = usersRepository.findByEmail(email).orElse(null);
-        Product product = productRepository.findById(productId).orElse(null);
-        List<Product> productList = user.getProducts();
-        productList.add(product);
-        user.setProducts(productList);
-        usersRepository.save(user);
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Product product = productsRepository.findById(productId).orElse(null);
+        List<User> userList = product.getUsers();
+        userList.add(user);
+        product.setUsers(userList);
+        productsRepository.save(product);
     }
+
+    @Override
+    public List<BasketDto> getBasketDetails() {
+        return null;
+    }
+
 }

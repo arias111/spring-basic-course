@@ -9,7 +9,7 @@ Content-Type: application/json
 ###
 
 GET http://localhost:8345/users/1
-Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1IiwibmFtZSI6Im5ld1VzZXI0Iiwicm9sZSI6IkFETUlOIn0.PZU5UU09xdTNINiiXrmyveIaDZIfCobFfcDDEUIg1Fk
+Auth: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1IiwiY3JlYXRlZEF0IjoiMjAyMS0wNS0yMlQxMzozNDo1Ni4yMzYyNDMiLCJyb2xlIjoiQURNSU4iLCJzdGF0ZSI6IkFDVElWRSIsImVtYWlsIjoibmV3VXNlcjRAbWFpbC5ydSJ9.VRMgBJ-_G_E7z5LaORGyMu-pfLwREiIgZsF7MhjKALU
 
 ###
 
@@ -25,4 +25,28 @@ GET http://localhost:8345/categories/1/productList
 
 ###
 
+GET http://localhost:8345/categories/7/detail
+
+###
+
+POST http://localhost:8345/basket/add
+Content-Type: application/json
+Auth: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1IiwiY3JlYXRlZEF0IjoiMjAyMS0wNS0yNFQxODoyMjo1MC43MDYyMDUiLCJyb2xlIjoiQURNSU4iLCJzdGF0ZSI6IkFDVElWRSIsImVtYWlsIjoibmV3VXNlcjRAbWFpbC5ydSJ9.YAOjEPhqMFsna52BHRl1DG53otHLE-jCqBNRZT4o-vY
+
+{
+  "productId": "7"
+}
+
+###
+
 GET http://localhost:8345/basket
+Content-Type: application/json
+Auth: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1IiwiY3JlYXRlZEF0IjoiMjAyMS0wNS0yMlQxNjozNzozNS4wODUxODIiLCJyb2xlIjoiQURNSU4iLCJzdGF0ZSI6IkFDVElWRSIsImVtYWlsIjoibmV3VXNlcjRAbWFpbC5ydSJ9.kxHOU1IUgyalhB3-TalJRaeSNEWXoolpnq7zjnBc71U
+
+
+###
+
+GET http://localhost:8345/checkout
+Auth: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1IiwiY3JlYXRlZEF0IjoiMjAyMS0wNS0yMlQxNjozNzozNS4wODUxODIiLCJyb2xlIjoiQURNSU4iLCJzdGF0ZSI6IkFDVElWRSIsImVtYWlsIjoibmV3VXNlcjRAbWFpbC5ydSJ9.kxHOU1IUgyalhB3-TalJRaeSNEWXoolpnq7zjnBc71U
+
+

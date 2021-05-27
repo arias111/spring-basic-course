@@ -3,15 +3,15 @@ package com.spring.basics.controllers;
 import com.spring.basics.models.Category;
 import com.spring.basics.models.Product;
 import com.spring.basics.repositories.CategoriesRepository;
-import com.spring.basics.repositories.ProductRepository;
 import com.spring.basics.repositories.ProductsRepository;
 import com.spring.basics.services.interfaces.ImageSaveService;
-import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;

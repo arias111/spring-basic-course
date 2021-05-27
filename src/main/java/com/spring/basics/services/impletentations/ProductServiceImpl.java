@@ -4,7 +4,6 @@ import com.spring.basics.dto.ProductDto;
 import com.spring.basics.dto.ProductsPage;
 import com.spring.basics.models.Product;
 import com.spring.basics.models.User;
-import com.spring.basics.repositories.ProductRepository;
 import com.spring.basics.repositories.ProductsRepository;
 import com.spring.basics.repositories.UsersRepository;
 import com.spring.basics.services.interfaces.ProductService;
@@ -21,8 +20,7 @@ import java.util.Optional;
 
 @Service
 public class ProductServiceImpl implements ProductService {
-    @Autowired
-    private ProductRepository productRepository;
+
 
     @Autowired
     private UsersRepository usersRepository;
@@ -32,7 +30,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> getAllProducts() {
-        return productRepository.findAll();
+        return productsRepository.findAll();
     }
 
     @Override
@@ -41,7 +39,7 @@ public class ProductServiceImpl implements ProductService {
                 .name(product.getName())
                 .imageName(product.getImageName())
                 .build();
-        productRepository.save(newProduct);
+        productsRepository.save(newProduct);
         return newProduct;
     }
 
@@ -71,8 +69,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product getProductById(Long productId) {
-        Optional<Product> optionalProduct = productRepository.findById(productId);
-        return optionalProduct.get();
+    public List<ProductDto> getProductById(Long productId) {
+        List<Product> optionalProduct = productsRepository.findProductsByCategoryId(productId);
+        return ProductDto.from(optionalProduct);
     }
 }

@@ -44,7 +44,7 @@ public class ImageSaveServiceImpl implements ImageSaveService {
     Image file = Image.builder()
             .type(uploadingFile.getContentType())
             .originalFileName(uploadingFile.getOriginalFilename())
-            .storageFileName(storageName)
+            .storageFileName(uploadingFile.getOriginalFilename())
             .size(uploadingFile.getSize())
             .url(storagePath + "/" + storageName)
             .build();

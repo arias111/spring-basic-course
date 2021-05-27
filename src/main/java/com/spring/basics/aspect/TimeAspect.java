@@ -10,15 +10,15 @@ import org.springframework.stereotype.Component;
 @Component
 @Aspect
 public class TimeAspect {
-    @Around(value = "execution(* com.spring.basics.services.impletentations.SignInServiceImpl.*(..))")
-    public ResponseEntity<WrapperResponseDto> addTimeResponse(ProceedingJoinPoint joinPoint) throws Throwable {
-        long before = System.currentTimeMillis();
-        Object responseEntity = joinPoint.proceed();
-        long after = System.currentTimeMillis();
-        ResponseEntity response = (ResponseEntity)responseEntity;
-        return ResponseEntity.ok(WrapperResponseDto.builder()
-                .time(after - before)
-                .data(response.getBody())
-                .build());
-    }
+//    @Around(value = "execution(org.springframework.http.ResponseEntity<*> com.spring.basics.controllers.ProductController.*(..))")
+//    public ResponseEntity<WrapperResponseDto> addTimeResponse(ProceedingJoinPoint joinPoint) throws Throwable {
+//        long before = System.currentTimeMillis();
+//        Object responseEntity = joinPoint.proceed();
+//        long after = System.currentTimeMillis();
+//        ResponseEntity response = (ResponseEntity)responseEntity;
+//        return ResponseEntity.ok(WrapperResponseDto.builder()
+//                .time(after - before)
+//                .data(response.getBody())
+//                .build());
+//    }
 }

@@ -4,7 +4,6 @@ import com.spring.basics.handlers.WebSocketHandshakeHandler;
 import com.spring.basics.handlers.WebSocketMessagesHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-
 import org.springframework.web.socket.config.annotation.EnableWebSocket;
 import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
 import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;

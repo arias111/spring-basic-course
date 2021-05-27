@@ -30,7 +30,7 @@ public class User {
     @Column(name = "username", nullable = false)
     private String username;
 
-    @ManyToMany(mappedBy = "users")
+    @ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
     private List<Product> products;
 
     @OneToMany(mappedBy = "user",

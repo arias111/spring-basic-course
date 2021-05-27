@@ -1,9 +1,6 @@
 package com.spring.basics.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
@@ -19,12 +16,25 @@ public class Product  {
     private Long id;
     private String name;
     private Long categoryId;
-    private String description;
     @Column(name = "image_name")
     private String imageName;
+    private String size;
+    private String type;
 
-    @ManyToMany
-    @JoinTable(name = "basket",joinColumns = @JoinColumn(name = "product_id",referencedColumnName = "id"),
-                inverseJoinColumns = @JoinColumn(name = "user_id",referencedColumnName = "id"))
+    public static Product from(Product product) {
+        return Product.builder()
+                .id(product.getId())
+                .name(product.getName())
+                .type(product.getType())
+                .imageName(product.getImageName())
+                .build();
+    }
+
+    @ToString.Exclude
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "basket",
+            joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"))
     private List<User> users;
+
 }

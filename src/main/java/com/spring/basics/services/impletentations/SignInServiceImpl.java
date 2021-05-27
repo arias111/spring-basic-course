@@ -1,20 +1,26 @@
 package com.spring.basics.services.impletentations;
 
+import com.auth0.jwt.algorithms.Algorithm;
 import com.spring.basics.dto.TokenDto;
 import com.spring.basics.dto.forms.UserAuthForm;
 import com.spring.basics.exceptions.LoginProcessErrorException;
+import com.spring.basics.models.Token;
 import com.spring.basics.models.User;
-import org.springframework.security.access.AccessDeniedException;
+import com.spring.basics.repositories.TokenRepository;
 import com.spring.basics.repositories.UsersRepository;
 import com.spring.basics.services.interfaces.SignInService;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import com.auth0.jwt.JWT;
 
-import java.util.Optional;
+
+import java.time.LocalDateTime;
+import java.util.function.Supplier;
 
 
 @Service
@@ -22,6 +28,9 @@ import java.util.Optional;
 public class SignInServiceImpl implements SignInService {
     private final UsersRepository usersRepository;
     private final PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private TokenRepository tokensRepository;
 
     @Override
     public User signIn(UserAuthForm signInForm) throws LoginProcessErrorException {
@@ -35,20 +44,34 @@ public class SignInServiceImpl implements SignInService {
     @Value("${jwt.secret}")
     private String secret;
 
+    @SneakyThrows
     @Override
     public TokenDto signInToken(UserAuthForm userAuthForm) {
-        Optional<User> userOptional = usersRepository.findByEmail(userAuthForm.getEmail());
-        if(userOptional.isPresent()) {
-            User user = userOptional.get();
-            if(passwordEncoder.matches(userAuthForm.getPassword(),user.getPassword())) {
-                String token = Jwts.builder()
-                        .setSubject(user.getId().toString())
-                        .claim("name",user.getUsername())
-                        .claim("role",user.getRole().name())
-                        .signWith(SignatureAlgorithm.HS256,secret)
-                        .compact();
-                return new TokenDto(token);
-            } else throw new AccessDeniedException("wrong data");
-        } else throw new AccessDeniedException("User not found");
+        User user = usersRepository.findByEmail(userAuthForm.getEmail())
+                .orElseThrow((Supplier<Throwable>) () -> new UsernameNotFoundException("User not found"));
+        if (passwordEncoder.matches(userAuthForm.getPassword(), user.getPassword())) {
+
+            String tokenValue = JWT.create()
+                    .withSubject(user.getId().toString())
+                    .withClaim("role", user.getRole().toString())
+                    .withClaim("state", user.getState().toString())
+                    .withClaim("email", user.getEmail())
+                    .withClaim("createdAt", LocalDateTime.now().toString())
+                    .sign(Algorithm.HMAC256(secret));
+
+            Token token = Token.builder()
+                    .token(tokenValue)
+                    .user(user)
+                    .build();
+
+            tokensRepository.save(token);
+
+            return TokenDto.builder()
+                    .token(tokenValue)
+                    .build();
+        } else {
+            throw new UsernameNotFoundException("Invalid username or password");
+        }
     }
+
 }

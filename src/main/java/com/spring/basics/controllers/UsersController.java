@@ -7,9 +7,9 @@ import com.spring.basics.services.interfaces.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -18,9 +18,6 @@ public class UsersController {
 
     @Autowired
     private UsersService usersService;
-
-    @Autowired
-    private UsersRepository usersRepository;
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/users")
@@ -33,13 +30,4 @@ public class UsersController {
     public ResponseEntity<UserDto> getUserById(@PathVariable("user-id") Long userId) {
         return ResponseEntity.ok(usersService.getUserById(userId));
     }
-
-//    @PreAuthorize("hasAuthority('ADMIN')")
-//    @DeleteMapping("/users/{user-id}")
-//    public ResponseEntity<?> deleteUser(@PathVariable("user-id") Long userId) {
-//        usersService.deleteUser(userId);
-//        return ResponseEntity.accepted().build();
-//    }
-
-
 }

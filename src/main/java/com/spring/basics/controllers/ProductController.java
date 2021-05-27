@@ -3,7 +3,6 @@ package com.spring.basics.controllers;
 import com.spring.basics.dto.ProductDto;
 import com.spring.basics.dto.ProductsPage;
 import com.spring.basics.models.Product;
-import com.spring.basics.repositories.ProductRepository;
 import com.spring.basics.repositories.ProductsRepository;
 import com.spring.basics.services.interfaces.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +18,6 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
-    @Autowired
-    private ProductsRepository productsRepository;
-
     @GetMapping("/categories/{categoryId}/productsList/search")
     public ResponseEntity<ProductsPage> search(@RequestParam("size") Integer size,
                                                @RequestParam("page") Integer page,
@@ -33,8 +29,8 @@ public class ProductController {
     }
 
     @GetMapping("/categories/{categoryId}/productList")
-    public ResponseEntity<List<Product>> getProducts(@PathVariable("categoryId") Long categoryId) {
-        return ResponseEntity.ok(productsRepository.findProductsByCategoryId(categoryId));
+    public ResponseEntity<List<ProductDto>> getProducts(@PathVariable("categoryId") Long categoryId) {
+        return ResponseEntity.ok(productService.getProductById(categoryId));
     }
 //    @PostMapping("/categories/{categoryId}")
 //    public Product addToCart(@PathVariable("categoryId")Long categoryId) {

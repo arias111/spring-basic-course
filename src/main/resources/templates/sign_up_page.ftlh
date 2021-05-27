@@ -265,7 +265,7 @@
                                             <div class="col-sm-6 col-sm-offset-3">
                                                 <input type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" value=<@spring.message 'sign_up_page.registration.signup'/>>
                                                 <h4 align="center"><@spring.message 'sign_up_page.registration.haveacc'/></h4>
-                                                <a href="/categories"><@spring.message 'sign_up_page.registration.signin'/></a>
+                                                <a href="/signIn"><@spring.message 'sign_up_page.registration.signin'/></a>
                                             </div>
                                         </div>
                                     </div>

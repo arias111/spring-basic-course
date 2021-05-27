@@ -1,22 +1,26 @@
 package com.spring.basics.security.jwt.authentication;
 
+import com.spring.basics.security.UserDetailsImpl;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 
-// объект, который работает с JWT-аутентификацией
 public class JwtAuthentication implements Authentication {
-    // флаг аутентификации
-    private boolean isAuthenticated = false;
+
+    private UserDetailsImpl userDetails;
+
+    private boolean isAuthenticated;
 
     private String token;
 
-    private UserDetails userDetails;
-
     public JwtAuthentication(String token) {
         this.token = token;
+    }
+
+    public void setUserDetails(UserDetails userDetails) {
+        this.userDetails = (UserDetailsImpl)userDetails;
     }
 
     @Override
@@ -26,7 +30,7 @@ public class JwtAuthentication implements Authentication {
 
     @Override
     public Object getCredentials() {
-        return null;
+        return userDetails.getPassword();
     }
 
     @Override
@@ -36,7 +40,9 @@ public class JwtAuthentication implements Authentication {
 
     @Override
     public Object getPrincipal() {
-        return userDetails;
+        if (userDetails != null) {
+            return userDetails.getUser();
+        } else return null;
     }
 
     @Override
@@ -51,10 +57,7 @@ public class JwtAuthentication implements Authentication {
 
     @Override
     public String getName() {
-        return this.token;
+        return token;
     }
 
-    public void setUserDetails(UserDetails userDetails) {
-        this.userDetails = userDetails;
-    }
 }

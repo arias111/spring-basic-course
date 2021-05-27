@@ -20,7 +20,6 @@ public class UserInfoController {
     @Autowired
     private UsersRepository usersRepository;
 
-    private final MailService mailService;
     private final SenderService senderService;
     @Autowired
     private UsersService usersService;

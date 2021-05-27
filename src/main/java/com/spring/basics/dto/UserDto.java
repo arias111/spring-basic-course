@@ -1,6 +1,5 @@
 package com.spring.basics.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.spring.basics.models.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

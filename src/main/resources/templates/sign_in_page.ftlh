@@ -252,7 +252,7 @@
                                     <div class="col-xs-6 form-group pull-right">
                                         <input type="submit" class="form-control btn btn-login"  value=<@spring.message 'sign_up_page.registration.signin'/> />
                                         <h4 align="center">Нет аккаунта?</h4>
-                                        <a href="/categories">Регистрация</a>
+                                        <a href="/signUp">Регистрация</a>
                                     </div>
                                 </form>
                             </div>

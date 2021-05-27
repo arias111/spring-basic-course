@@ -1,8 +1,6 @@
 package com.spring.basics.controllers;
 
 import com.spring.basics.dto.UserDto;
-import com.spring.basics.exceptions.ApiRequestException;
-import com.spring.basics.models.User;
 import com.spring.basics.repositories.CookieRepository;
 import com.spring.basics.repositories.UsersRepository;
 import com.spring.basics.security.UserDetailsImpl;
@@ -19,7 +17,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 import java.util.UUID;
 
 @Controller
@@ -27,9 +24,6 @@ public class ProfileController {
 
     @Autowired
     private UsersRepository usersRepository;
-
-    @Autowired
-    private CookieRepository cookieRepository;
 
     @Autowired
     private UsersService usersService;

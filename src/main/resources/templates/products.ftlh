@@ -114,13 +114,22 @@
                     <div class="mr-2 mb-3 mb-lg-0"><img style="width: 200px" src="/img/${products.getImageName()}" alt="img"/>
                     </div>
                     <div class="media-body">
-                        <h6 class="media-title font-weight-semibold"> <a href="#" data-abc="true">${products.name}</a> </h6>
+                        <h6 class="media-title font-weight-semibold">  <a class="categoryName" href="/categories/${products.getCategoryId()}/${products.getId()}">${products.name}</a> </h6>
                         <p class="mb-3"></p>
                         <ul class="list-inline list-inline-dotted mb-0">
                         </ul>
                     </div>
                     <div class="mt-3 mt-lg-0 ml-lg-3 text-center">
                         <h3 class="mb-0 font-weight-semibold"></h3>
+                        <form action="/basket" method="get">
+                            <button class="btn btn-warning mt-4 text-white" style="background-color:white">
+                                <svg width="2em" height="2em" viewBox="0 0 20 20" fill="black" xmlns="http://www.w3.org/2000/svg"
+                                     href="/basket">
+                                    <path fill-rule="evenodd"
+                                          d="M8 1a2.5 2.5 0 0 0-2.5 2.5V4h5v-.5A2.5 2.5 0 0 0 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5v9a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V5H2z"/>
+                                </svg>
+                            </button>
+                        </form>
                         <div class="text-muted"></div> <button type="button" class="btn btn-warning mt-4 text-white"><i class="icon-cart-add mr-2"></i> Add to cart</button>
                     </div>
                 </div>
